@@ -11,12 +11,13 @@ Sistema que cada mañana le entrega a cada empresa los procesos abiertos de SECO
 
 ## Equipo
 
-| Fase | Integrante | Carpeta |
-|---|---|---|
-| 1 · Ingeniería de datos | Juan Diego Acuña | [`01-ingenieria-de-datos/`](01-ingenieria-de-datos/) |
-| 2 · Modelo de machine learning | David Lopera | [`02-modelo-ml/`](02-modelo-ml/) |
-| 3 · MLOps | Jacobo Restrepo | [`03-mlops/`](03-mlops/) |
-| 4 · Visualización y página web | Nicolás Hurtado y José Alejandro Duque | [`04-visualizacion/`](04-visualizacion/) |
+| Integrante |
+|---|
+| Juan Diego Acuña
+| David Lopera
+| Jacobo Restrepo
+| Nicolás Hurtado
+| José Alejandro Duque 
 
 ## Problema
 
