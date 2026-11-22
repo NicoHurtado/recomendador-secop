@@ -1,0 +1,133 @@
+# CI/CD del repo secop-mlops.
+# - En cada pull request: ruff + pytest (con PostgreSQL para publicar y la fuente RDS) + build de las dos imágenes
+#   (secop-api y secop-jobs) sin push.
+# - En push a main: lo mismo y, si pasa, build linux/amd64 → ECR (etiqueta = hash corto del commit) de secop-api y
+#   secop-jobs → Lambda con la nueva secop-api → verificación de /health. La task definition secop-score apunta a
+#   una etiqueta fija: cambiar de imagen del job es registrar una revisión nueva (a mano, con su prueba).
+# - En pull requests y en main: job paridad (tests/test_paridad.py dentro de la imagen secop-jobs, contra la
+#   referencia de s3://…/ci/referencia/ y los artefactos de modelos/v1/), con el rol de SOLO lectura
+#   secop-github-ci-lectura. Los PRs desde forks no reciben token OIDC: ahí se salta.
+# Credenciales por OIDC (secop-github-deploy solo desde main; secop-github-ci-lectura): no hay llaves en GitHub.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: prueba
+          POSTGRES_DB: secop
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres -d secop"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      TEST_DATABASE_URL: postgresql://postgres:prueba@localhost:5432/secop
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-*.txt
+      - name: Dependencias
+        run: |
+          pip install -r requirements-dev.txt
+          # El paquete ml/ trae sus propias dependencias; la prueba de paridad se salta si no hay SECOP_DATA_DIR
+          if [ -f requirements-ml.txt ]; then pip install -r requirements-ml.txt; fi
+      - name: Lint
+        run: ruff check . && ruff format --check .
+      - name: Pruebas
+        run: pytest -q -rs
+      - name: Build de las imágenes (sin push)
+        if: github.event_name == 'pull_request'
+        run: |
+          docker build --platform linux/amd64 --provenance=false -f api/Dockerfile -t secop-api:pr .
+          docker build --platform linux/amd64 --provenance=false -f infra/jobs.Dockerfile -t secop-jobs:pr .
+
+  paridad:
+    # Paridad exacta de ml/ (marzo de 2026, 300 empresas) dentro de la imagen del job, la misma en la que se generó
+    # la referencia en Fargate. Necesita ~1 GB de S3 y ~10 GB de memoria (la historia se carga completa).
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/secop-github-ci-lectura
+          aws-region: us-east-1
+      - name: Imagen secop-jobs
+        run: docker build --platform linux/amd64 --provenance=false -f infra/jobs.Dockerfile -t secop-jobs:paridad .
+      - name: Prueba de paridad
+        run: |
+          free -g
+          docker run --rm -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN -e AWS_REGION \
+            secop-jobs:paridad sh -c "pip install --quiet --user pytest==8.3.5 && python -m jobs.paridad_ci"
+
+  desplegar:
+    needs: pruebas
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      group: desplegar-secop-api
+      cancel-in-progress: false
+    env:
+      AWS_REGION: us-east-1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/secop-github-deploy
+          aws-region: us-east-1
+      - id: ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      - name: Build y push a ECR
+        id: imagen
+        run: |
+          IMAGEN=${{ steps.ecr.outputs.registry }}/secop-api:${GITHUB_SHA::7}
+          docker build --platform linux/amd64 --provenance=false --sbom=false -f api/Dockerfile -t "$IMAGEN" .
+          docker push "$IMAGEN"
+          echo "uri=$IMAGEN" >> "$GITHUB_OUTPUT"
+      - name: Build y push de secop-jobs a ECR
+        run: |
+          IMAGEN=${{ steps.ecr.outputs.registry }}/secop-jobs:${GITHUB_SHA::7}
+          # Una etiqueta del job no se reescribe: la task definition y la referencia de paridad apuntan a ella
+          if docker manifest inspect "$IMAGEN" >/dev/null 2>&1; then
+            echo "$IMAGEN ya existe en ECR: no se reconstruye"
+            exit 0
+          fi
+          docker build --platform linux/amd64 --provenance=false --sbom=false -f infra/jobs.Dockerfile -t "$IMAGEN" .
+          docker push "$IMAGEN"
+      - name: Actualizar la Lambda
+        run: |
+          aws lambda update-function-code --function-name secop-api --image-uri "${{ steps.imagen.outputs.uri }}" \
+            --query LastUpdateStatus --output text
+          aws lambda wait function-updated --function-name secop-api
+      - name: Verificar /health
+        run: |
+          URL=$(aws lambda get-function-url-config --function-name secop-api --query FunctionUrl --output text)
+          for i in $(seq 1 6); do
+            R=$(curl -s -m 20 "${URL}health" || true)
+            echo "intento $i: $R"
+            if echo "$R" | grep -q '"base_datos":"ok"'; then exit 0; fi
+            sleep 10
+          done
+          echo "::error::/health no respondió base_datos=ok tras el despliegue"
+          exit 1

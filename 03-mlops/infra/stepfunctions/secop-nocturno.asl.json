@@ -1,0 +1,550 @@
+{
+  "Comment": "Flujo nocturno del recomendador SECOP: ingestas de recientes en paralelo → silver procesos (obligatorio) → proponentes → proveedores → contratos (opcionales: si fallan, avisan y sigue) → ganador (obligatorio) → score.py (obligatorio). Los marcadores entre llaves con signo pesos se reemplazan al desplegar (README).",
+  "StartAt": "Ingestas",
+  "TimeoutSeconds": 14400,
+  "States": {
+    "Ingestas": {
+      "Type": "Parallel",
+      "Comment": "jobs/ingesta_recientes.py por tabla, en paralelo (1 vCPU / 2 GB cada una). Compensa la Lambda de ingesta; si una falla, avisa y la noche sigue.",
+      "Branches": [
+        {
+          "StartAt": "Ingesta_procesos",
+          "States": {
+            "Ingesta_procesos": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::ecs:runTask.sync",
+              "Parameters": {
+                "Cluster": "${CLUSTER_ARN}",
+                "TaskDefinition": "${TASK_DEFINITION_ARN}",
+                "LaunchType": "FARGATE",
+                "NetworkConfiguration": {
+                  "AwsvpcConfiguration": {
+                    "Subnets": ${SUBNETS},
+                    "SecurityGroups": [
+                      "${SG_JOBS}"
+                    ],
+                    "AssignPublicIp": "ENABLED"
+                  }
+                },
+                "PropagateTags": "TASK_DEFINITION",
+                "Overrides": {
+                  "Cpu": "1024",
+                  "Memory": "2048",
+                  "ContainerOverrides": [
+                    {
+                      "Name": "score",
+                      "Command": [
+                        "python",
+                        "-m",
+                        "jobs.ingesta_recientes",
+                        "--tabla",
+                        "procesos"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "ResultPath": null,
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "IntervalSeconds": 120,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2.0
+                }
+              ],
+              "Catch": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "ResultPath": "$.error",
+                  "Next": "Aviso_ingesta_procesos"
+                }
+              ],
+              "End": true
+            },
+            "Aviso_ingesta_procesos": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${SNS_TOPIC_ARN}",
+                "Subject": "SECOP: falló la ingesta de recientes de procesos",
+                "Message.$": "States.Format('Falló la ingesta de recientes de procesos tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+              },
+              "ResultPath": null,
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Ingesta_proponentes",
+          "States": {
+            "Ingesta_proponentes": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::ecs:runTask.sync",
+              "Parameters": {
+                "Cluster": "${CLUSTER_ARN}",
+                "TaskDefinition": "${TASK_DEFINITION_ARN}",
+                "LaunchType": "FARGATE",
+                "NetworkConfiguration": {
+                  "AwsvpcConfiguration": {
+                    "Subnets": ${SUBNETS},
+                    "SecurityGroups": [
+                      "${SG_JOBS}"
+                    ],
+                    "AssignPublicIp": "ENABLED"
+                  }
+                },
+                "PropagateTags": "TASK_DEFINITION",
+                "Overrides": {
+                  "Cpu": "1024",
+                  "Memory": "2048",
+                  "ContainerOverrides": [
+                    {
+                      "Name": "score",
+                      "Command": [
+                        "python",
+                        "-m",
+                        "jobs.ingesta_recientes",
+                        "--tabla",
+                        "proponentes"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "ResultPath": null,
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "IntervalSeconds": 120,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2.0
+                }
+              ],
+              "Catch": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "ResultPath": "$.error",
+                  "Next": "Aviso_ingesta_proponentes"
+                }
+              ],
+              "End": true
+            },
+            "Aviso_ingesta_proponentes": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${SNS_TOPIC_ARN}",
+                "Subject": "SECOP: falló la ingesta de recientes de proponentes",
+                "Message.$": "States.Format('Falló la ingesta de recientes de proponentes tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+              },
+              "ResultPath": null,
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Ingesta_contratos",
+          "States": {
+            "Ingesta_contratos": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::ecs:runTask.sync",
+              "Parameters": {
+                "Cluster": "${CLUSTER_ARN}",
+                "TaskDefinition": "${TASK_DEFINITION_ARN}",
+                "LaunchType": "FARGATE",
+                "NetworkConfiguration": {
+                  "AwsvpcConfiguration": {
+                    "Subnets": ${SUBNETS},
+                    "SecurityGroups": [
+                      "${SG_JOBS}"
+                    ],
+                    "AssignPublicIp": "ENABLED"
+                  }
+                },
+                "PropagateTags": "TASK_DEFINITION",
+                "Overrides": {
+                  "Cpu": "1024",
+                  "Memory": "2048",
+                  "ContainerOverrides": [
+                    {
+                      "Name": "score",
+                      "Command": [
+                        "python",
+                        "-m",
+                        "jobs.ingesta_recientes",
+                        "--tabla",
+                        "contratos"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "ResultPath": null,
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "IntervalSeconds": 120,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2.0
+                }
+              ],
+              "Catch": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "ResultPath": "$.error",
+                  "Next": "Aviso_ingesta_contratos"
+                }
+              ],
+              "End": true
+            },
+            "Aviso_ingesta_contratos": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${SNS_TOPIC_ARN}",
+                "Subject": "SECOP: falló la ingesta de recientes de contratos",
+                "Message.$": "States.Format('Falló la ingesta de recientes de contratos tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+              },
+              "ResultPath": null,
+              "End": true
+            }
+          }
+        },
+        {
+          "StartAt": "Ingesta_proveedores",
+          "States": {
+            "Ingesta_proveedores": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::ecs:runTask.sync",
+              "Parameters": {
+                "Cluster": "${CLUSTER_ARN}",
+                "TaskDefinition": "${TASK_DEFINITION_ARN}",
+                "LaunchType": "FARGATE",
+                "NetworkConfiguration": {
+                  "AwsvpcConfiguration": {
+                    "Subnets": ${SUBNETS},
+                    "SecurityGroups": [
+                      "${SG_JOBS}"
+                    ],
+                    "AssignPublicIp": "ENABLED"
+                  }
+                },
+                "PropagateTags": "TASK_DEFINITION",
+                "Overrides": {
+                  "Cpu": "1024",
+                  "Memory": "2048",
+                  "ContainerOverrides": [
+                    {
+                      "Name": "score",
+                      "Command": [
+                        "python",
+                        "-m",
+                        "jobs.ingesta_recientes",
+                        "--tabla",
+                        "proveedores"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "ResultPath": null,
+              "Retry": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "IntervalSeconds": 120,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2.0
+                }
+              ],
+              "Catch": [
+                {
+                  "ErrorEquals": [
+                    "States.ALL"
+                  ],
+                  "ResultPath": "$.error",
+                  "Next": "Aviso_ingesta_proveedores"
+                }
+              ],
+              "End": true
+            },
+            "Aviso_ingesta_proveedores": {
+              "Type": "Task",
+              "Resource": "arn:aws:states:::sns:publish",
+              "Parameters": {
+                "TopicArn": "${SNS_TOPIC_ARN}",
+                "Subject": "SECOP: falló la ingesta de recientes de proveedores",
+                "Message.$": "States.Format('Falló la ingesta de recientes de proveedores tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+              },
+              "ResultPath": null,
+              "End": true
+            }
+          }
+        }
+      ],
+      "ResultPath": null,
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Aviso_ingestas"
+        }
+      ],
+      "Next": "SilverProcesos"
+    },
+    "Aviso_ingestas": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "${SNS_TOPIC_ARN}",
+        "Subject": "SECOP: falló el paso de ingestas",
+        "Message.$": "States.Format('Falló el paso de ingestas tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+      },
+      "ResultPath": null,
+      "Next": "SilverProcesos"
+    },
+    "SilverProcesos": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "secop-silver-procesos"
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 120,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Next": "SilverProponentes",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Falla"
+        }
+      ],
+      "Comment": "OBLIGATORIO. E3: reescribe secop_silver.procesos desde bronze."
+    },
+    "SilverProponentes": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "secop-silver-proponentes"
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 120,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Next": "SilverProveedores",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Aviso_silver_proponentes"
+        }
+      ],
+      "Comment": "Opcional. E4: si falla, la tabla queda como estaba."
+    },
+    "Aviso_silver_proponentes": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "${SNS_TOPIC_ARN}",
+        "Subject": "SECOP: falló secop-silver-proponentes",
+        "Message.$": "States.Format('Falló secop-silver-proponentes tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+      },
+      "ResultPath": null,
+      "Next": "SilverProveedores"
+    },
+    "SilverProveedores": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "secop-silver-proveedores"
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 120,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Next": "SilverContratos",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Aviso_silver_proveedores"
+        }
+      ],
+      "Comment": "Opcional. Lee silver proponentes."
+    },
+    "Aviso_silver_proveedores": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "${SNS_TOPIC_ARN}",
+        "Subject": "SECOP: falló secop-silver-proveedores",
+        "Message.$": "States.Format('Falló secop-silver-proveedores tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+      },
+      "ResultPath": null,
+      "Next": "SilverContratos"
+    },
+    "SilverContratos": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "secop-silver-contratos"
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 120,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Next": "SilverGanador",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Aviso_silver_contratos"
+        }
+      ],
+      "Comment": "Opcional. E5: lee procesos, proponentes y proveedores."
+    },
+    "Aviso_silver_contratos": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "TopicArn": "${SNS_TOPIC_ARN}",
+        "Subject": "SECOP: falló secop-silver-contratos",
+        "Message.$": "States.Format('Falló secop-silver-contratos tras 2 reintentos en la ejecución {}. La noche sigue (no es obligatorio para publicar). Error: {}', $$.Execution.Name, States.JsonToString($.error))"
+      },
+      "ResultPath": null,
+      "Next": "SilverGanador"
+    },
+    "SilverGanador": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "secop-silver-ganador"
+      },
+      "ResultPath": null,
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 120,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Next": "Score",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Falla"
+        }
+      ],
+      "Comment": "OBLIGATORIO. E6: completa ganador, estado, sector_entidad y n_proponentes (debe correr después de E3)."
+    },
+    "Score": {
+      "Type": "Task",
+      "Comment": "OBLIGATORIO. jobs/score.py (fecha_corte = hoy en Bogotá). Sale con 2 si silver no está fresco y con 1 si falla: en los dos casos no publica.",
+      "Resource": "arn:aws:states:::ecs:runTask.sync",
+      "Parameters": {
+        "Cluster": "${CLUSTER_ARN}",
+        "TaskDefinition": "${TASK_DEFINITION_ARN}",
+        "LaunchType": "FARGATE",
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "Subnets": ${SUBNETS},
+            "SecurityGroups": [
+              "${SG_JOBS}"
+            ],
+            "AssignPublicIp": "ENABLED"
+          }
+        },
+        "PropagateTags": "TASK_DEFINITION"
+      },
+      "ResultPath": "$.score",
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "IntervalSeconds": 300,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "ResultPath": "$.error",
+          "Next": "Falla"
+        }
+      ],
+      "Next": "Publicado"
+    },
+    "Publicado": {
+      "Type": "Succeed"
+    },
+    "Falla": {
+      "Type": "Fail",
+      "Error": "SecopNocturnoFallo",
+      "Cause": "Falló un paso obligatorio (silver procesos, ganador o score) tras sus reintentos: no se publicó nada y la API sigue con la versión anterior."
+    }
+  }
+}

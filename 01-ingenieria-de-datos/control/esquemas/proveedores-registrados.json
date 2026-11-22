@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Codigo",
+    "fieldName": "codigo",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre",
+    "fieldName": "nombre",
+    "tipo": "text"
+  },
+  {
+    "name": "NIT",
+    "fieldName": "nit",
+    "tipo": "text"
+  },
+  {
+    "name": "Es Entidad",
+    "fieldName": "es_entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Es grupo",
+    "fieldName": "es_grupo",
+    "tipo": "text"
+  },
+  {
+    "name": "Esta Activa",
+    "fieldName": "esta_activa",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha Creación",
+    "fieldName": "fecha_creacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Codigo Categoria Principal",
+    "fieldName": "codigo_categoria_principal",
+    "tipo": "text"
+  },
+  {
+    "name": "Descripcion Categoria Principal",
+    "fieldName": "descripcion_categoria_principal",
+    "tipo": "text"
+  },
+  {
+    "name": "Telefono",
+    "fieldName": "telefono",
+    "tipo": "text"
+  },
+  {
+    "name": "Fax",
+    "fieldName": "fax",
+    "tipo": "text"
+  },
+  {
+    "name": "Correo",
+    "fieldName": "correo",
+    "tipo": "text"
+  },
+  {
+    "name": "Direccion",
+    "fieldName": "direccion",
+    "tipo": "text"
+  },
+  {
+    "name": "Pais",
+    "fieldName": "pais",
+    "tipo": "text"
+  },
+  {
+    "name": "Departamento",
+    "fieldName": "departamento",
+    "tipo": "text"
+  },
+  {
+    "name": "Municipio",
+    "fieldName": "municipio",
+    "tipo": "text"
+  },
+  {
+    "name": "Sitio web",
+    "fieldName": "sitio_web",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo Empresa",
+    "fieldName": "tipo_empresa",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre representante legal",
+    "fieldName": "nombre_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo doc representante legal",
+    "fieldName": "tipo_doc_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Número doc representante legal",
+    "fieldName": "n_mero_doc_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Telefono representante legal",
+    "fieldName": "telefono_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Correo representante legal",
+    "fieldName": "correo_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "EsPyme",
+    "fieldName": "espyme",
+    "tipo": "text"
+  },
+  {
+    "name": "Ubicación",
+    "fieldName": "ubicacion",
+    "tipo": "text"
+  },
+  {
+    "name": "Tamaño Entidad",
+    "fieldName": "tama_o_entidad",
+    "tipo": "text"
+  }
+]

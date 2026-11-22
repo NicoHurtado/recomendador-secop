@@ -1,0 +1,35 @@
+{
+  "name": "contratamatch-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:mock": "vite --mode mock",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "datos:simulados": "node scripts/generar-snapshot-simulado.mjs"
+  },
+  "dependencies": {
+    "echarts": "^6.1.0",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.44",
+    "vue-echarts": "^8.3.2",
+    "vue-router": "^4.6.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/test-utils": "^2.6.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-vue": "^10.12.1",
+    "globals": "^17.14.0",
+    "jsdom": "^31.0.1",
+    "tailwindcss": "^4.3.5",
+    "vite": "^8.3.6",
+    "vitest": "^4.1.12"
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "name": "ID Procedimiento",
+    "fieldName": "id_procedimiento",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha Publicación",
+    "fieldName": "fecha_publicaci_n",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Nombre Procedimiento",
+    "fieldName": "nombre_procedimiento",
+    "tipo": "text"
+  },
+  {
+    "name": "NIT Entidad",
+    "fieldName": "nit_entidad",
+    "tipo": "number"
+  },
+  {
+    "name": "Codigo Entidad",
+    "fieldName": "codigo_entidad",
+    "tipo": "number"
+  },
+  {
+    "name": "Entidad Compradora",
+    "fieldName": "entidad_compradora",
+    "tipo": "text"
+  },
+  {
+    "name": "Proveedor",
+    "fieldName": "proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "NIT Proveedor",
+    "fieldName": "nit_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Codigo Proveedor",
+    "fieldName": "codigo_proveedor",
+    "tipo": "number"
+  }
+]

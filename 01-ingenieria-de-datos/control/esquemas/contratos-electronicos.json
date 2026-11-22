@@ -1,0 +1,477 @@
+[
+  {
+    "name": "Nombre Entidad",
+    "fieldName": "nombre_entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Nit Entidad",
+    "fieldName": "nit_entidad",
+    "tipo": "number"
+  },
+  {
+    "name": "Departamento",
+    "fieldName": "departamento",
+    "tipo": "text"
+  },
+  {
+    "name": "Ciudad",
+    "fieldName": "ciudad",
+    "tipo": "text"
+  },
+  {
+    "name": "Localización",
+    "fieldName": "localizaci_n",
+    "tipo": "text"
+  },
+  {
+    "name": "Orden",
+    "fieldName": "orden",
+    "tipo": "text"
+  },
+  {
+    "name": "Sector",
+    "fieldName": "sector",
+    "tipo": "text"
+  },
+  {
+    "name": "Rama",
+    "fieldName": "rama",
+    "tipo": "text"
+  },
+  {
+    "name": "Entidad Centralizada",
+    "fieldName": "entidad_centralizada",
+    "tipo": "text"
+  },
+  {
+    "name": "Proceso de Compra",
+    "fieldName": "proceso_de_compra",
+    "tipo": "text"
+  },
+  {
+    "name": "ID Contrato",
+    "fieldName": "id_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Referencia del Contrato",
+    "fieldName": "referencia_del_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Estado Contrato",
+    "fieldName": "estado_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Codigo de Categoria Principal",
+    "fieldName": "codigo_de_categoria_principal",
+    "tipo": "text"
+  },
+  {
+    "name": "Descripcion del Proceso",
+    "fieldName": "descripcion_del_proceso",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de Contrato",
+    "fieldName": "tipo_de_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Modalidad de Contratacion",
+    "fieldName": "modalidad_de_contratacion",
+    "tipo": "text"
+  },
+  {
+    "name": "Justificacion Modalidad de Contratacion",
+    "fieldName": "justificacion_modalidad_de",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha de Firma",
+    "fieldName": "fecha_de_firma",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Inicio del Contrato",
+    "fieldName": "fecha_de_inicio_del_contrato",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Fin del Contrato",
+    "fieldName": "fecha_de_fin_del_contrato",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Condiciones de Entrega",
+    "fieldName": "condiciones_de_entrega",
+    "tipo": "text"
+  },
+  {
+    "name": "TipoDocProveedor",
+    "fieldName": "tipodocproveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Documento Proveedor",
+    "fieldName": "documento_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Proveedor Adjudicado",
+    "fieldName": "proveedor_adjudicado",
+    "tipo": "text"
+  },
+  {
+    "name": "Es Grupo",
+    "fieldName": "es_grupo",
+    "tipo": "text"
+  },
+  {
+    "name": "Es Pyme",
+    "fieldName": "es_pyme",
+    "tipo": "text"
+  },
+  {
+    "name": "Habilita Pago Adelantado",
+    "fieldName": "habilita_pago_adelantado",
+    "tipo": "text"
+  },
+  {
+    "name": "Liquidación",
+    "fieldName": "liquidaci_n",
+    "tipo": "text"
+  },
+  {
+    "name": "Obligación Ambiental",
+    "fieldName": "obligaci_n_ambiental",
+    "tipo": "text"
+  },
+  {
+    "name": "Obligaciones Postconsumo",
+    "fieldName": "obligaciones_postconsumo",
+    "tipo": "text"
+  },
+  {
+    "name": "Reversion",
+    "fieldName": "reversion",
+    "tipo": "text"
+  },
+  {
+    "name": "Origen de los Recursos",
+    "fieldName": "origen_de_los_recursos",
+    "tipo": "text"
+  },
+  {
+    "name": "Destino Gasto",
+    "fieldName": "destino_gasto",
+    "tipo": "text"
+  },
+  {
+    "name": "Valor del Contrato",
+    "fieldName": "valor_del_contrato",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor de pago adelantado",
+    "fieldName": "valor_de_pago_adelantado",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Facturado",
+    "fieldName": "valor_facturado",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Pendiente de Pago",
+    "fieldName": "valor_pendiente_de_pago",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Pagado",
+    "fieldName": "valor_pagado",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Amortizado",
+    "fieldName": "valor_amortizado",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Pendiente de Amortizacion",
+    "fieldName": "valor_pendiente_de",
+    "tipo": "number"
+  },
+  {
+    "name": "Valor Pendiente de Ejecucion",
+    "fieldName": "valor_pendiente_de_ejecucion",
+    "tipo": "number"
+  },
+  {
+    "name": "Saldo CDP",
+    "fieldName": "saldo_cdp",
+    "tipo": "number"
+  },
+  {
+    "name": "Saldo Vigencia",
+    "fieldName": "saldo_vigencia",
+    "tipo": "number"
+  },
+  {
+    "name": "EsPostConflicto",
+    "fieldName": "espostconflicto",
+    "tipo": "text"
+  },
+  {
+    "name": "Dias adicionados",
+    "fieldName": "dias_adicionados",
+    "tipo": "number"
+  },
+  {
+    "name": "Puntos del Acuerdo",
+    "fieldName": "puntos_del_acuerdo",
+    "tipo": "text"
+  },
+  {
+    "name": "Pilares del Acuerdo",
+    "fieldName": "pilares_del_acuerdo",
+    "tipo": "text"
+  },
+  {
+    "name": "URLProceso",
+    "fieldName": "urlproceso",
+    "tipo": "url"
+  },
+  {
+    "name": "Nombre Representante Legal",
+    "fieldName": "nombre_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Nacionalidad Representante Legal",
+    "fieldName": "nacionalidad_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Domicilio Representante Legal",
+    "fieldName": "domicilio_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de Identificación Representante Legal",
+    "fieldName": "tipo_de_identificaci_n_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Identificación Representante Legal",
+    "fieldName": "identificaci_n_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Género Representante Legal",
+    "fieldName": "g_nero_representante_legal",
+    "tipo": "text"
+  },
+  {
+    "name": "Presupuesto General de la Nacion – PGN",
+    "fieldName": "presupuesto_general_de_la_nacion_pgn",
+    "tipo": "number"
+  },
+  {
+    "name": "Sistema General de Participaciones",
+    "fieldName": "sistema_general_de_participaciones",
+    "tipo": "number"
+  },
+  {
+    "name": "Sistema General de Regalías",
+    "fieldName": "sistema_general_de_regal_as",
+    "tipo": "number"
+  },
+  {
+    "name": "Recursos Propios (Alcaldías y Gobernaciones)",
+    "fieldName": "recursos_propios_alcald_as_gobernaciones_y_resguardos_ind_genas_",
+    "tipo": "number"
+  },
+  {
+    "name": "Recursos de Credito",
+    "fieldName": "recursos_de_credito",
+    "tipo": "number"
+  },
+  {
+    "name": "Otros Recursos (Especie, Privados, Cooperación, Propios Entidades Autónomas)",
+    "fieldName": "recursos_propios",
+    "tipo": "number"
+  },
+  {
+    "name": "Ultima Actualizacion",
+    "fieldName": "ultima_actualizacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Codigo Entidad",
+    "fieldName": "codigo_entidad",
+    "tipo": "number"
+  },
+  {
+    "name": "Codigo Proveedor",
+    "fieldName": "codigo_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha Inicio Liquidacion",
+    "fieldName": "fecha_inicio_liquidacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha Fin Liquidacion",
+    "fieldName": "fecha_fin_liquidacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Objeto del Contrato",
+    "fieldName": "objeto_del_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Duración del contrato",
+    "fieldName": "duraci_n_del_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre del banco",
+    "fieldName": "nombre_del_banco",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de cuenta",
+    "fieldName": "tipo_de_cuenta",
+    "tipo": "text"
+  },
+  {
+    "name": "Número de cuenta",
+    "fieldName": "n_mero_de_cuenta",
+    "tipo": "text"
+  },
+  {
+    "name": "El contrato puede ser prorrogado",
+    "fieldName": "el_contrato_puede_ser_prorrogado",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha de notificación de prorrogación",
+    "fieldName": "fecha_de_notificaci_n_de_prorrogaci_n",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Nombre ordenador del gasto",
+    "fieldName": "nombre_ordenador_del_gasto",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de documento Ordenador del gasto",
+    "fieldName": "tipo_de_documento_ordenador_del_gasto",
+    "tipo": "text"
+  },
+  {
+    "name": "Número de documento Ordenador del gasto",
+    "fieldName": "n_mero_de_documento_ordenador_del_gasto",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre supervisor",
+    "fieldName": "nombre_supervisor",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de documento supervisor",
+    "fieldName": "tipo_de_documento_supervisor",
+    "tipo": "text"
+  },
+  {
+    "name": "Número de documento supervisor",
+    "fieldName": "n_mero_de_documento_supervisor",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre Ordenador de Pago",
+    "fieldName": "nombre_ordenador_de_pago",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de documento Ordenador de Pago",
+    "fieldName": "tipo_de_documento_ordenador_de_pago",
+    "tipo": "text"
+  },
+  {
+    "name": "Número de documento Ordenador de Pago",
+    "fieldName": "n_mero_de_documento_ordenador_de_pago",
+    "tipo": "text"
+  },
+  {
+    "name": "Documentos Tipo",
+    "fieldName": "documentos_tipo",
+    "tipo": "text"
+  },
+  {
+    "name": "Descripcion Documentos Tipo",
+    "fieldName": "descripcion_documentos_tipo",
+    "tipo": "text"
+  },
+  {
+    "name": "Dirección de ejecución del contrato",
+    "fieldName": "direcci_n_de_ejecuci_n_del_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Criterios de sostenibilidad ambiental",
+    "fieldName": "criterios_de_sostenibilidad_ambiental",
+    "tipo": "text"
+  },
+  {
+    "name": "Requisitos ambientales en las especificaciones técnicas",
+    "fieldName": "requisitos_ambientales_en_las_especificaciones_t_cnicas",
+    "tipo": "text"
+  },
+  {
+    "name": "Criterios ambientales en la evaluación de las ofertas",
+    "fieldName": "criterios_ambientales_en_la_evaluaci_n_de_las_ofertas",
+    "tipo": "text"
+  },
+  {
+    "name": "Obligaciones contractuales o poscontractuales a nivel ambiental",
+    "fieldName": "obligaciones_contractuales_o_poscontractuales_a_nivel_ambiental",
+    "tipo": "text"
+  },
+  {
+    "name": "Uso de etiquetado ecológico",
+    "fieldName": "uso_de_etiquetado_ecol_gico",
+    "tipo": "text"
+  },
+  {
+    "name": "Obligaciones posconsumo",
+    "fieldName": "obligaciones_posconsumo",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha inicio obligaciones posconsumo",
+    "fieldName": "fecha_inicio_obligaciones_posconsumo",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha fin obligaciones posconsumo",
+    "fieldName": "fecha_fin_obligaciones_posconsumo",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha inicio reversión",
+    "fieldName": "fecha_inicio_reversi_n",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha fin reversión",
+    "fieldName": "fecha_fin_reversi_n",
+    "tipo": "calendar_date"
+  }
+]

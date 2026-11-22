@@ -1,0 +1,23 @@
+[project]
+name = "secop-mlops"
+version = "0.1.0"
+description = "Servicio del recomendador SECOP: job nocturno, base de serving y API"
+requires-python = ">=3.11,<3.12"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# Código copiado línea por línea de los notebooks (para poder compararlo con un diff)
+"ml/*" = ["E501"]
+
+[tool.ruff.format]
+# ml/ conserva el formato de los notebooks, línea por línea, para poder compararlo con un diff
+exclude = ["ml/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

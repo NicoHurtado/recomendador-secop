@@ -1,0 +1,5 @@
+ronda,filas entrena,filas valida,% gana valida,% valida con 2+,% valida usuario objetivo,% valida empresa con historial,% entrena adjudicado después del corte,% entrena sin fecha_adjudicacion
+ronda1,406581,115077,25.8,91.0,88.7,81.4,1.19,0.0
+ronda2,521658,142367,28.2,88.6,82.7,78.6,3.71,0.0
+ronda3,664025,128571,27.0,89.0,86.2,81.2,0.76,0.0
+prueba,792596,314090,29.2,86.7,82.3,75.2,2.91,0.0

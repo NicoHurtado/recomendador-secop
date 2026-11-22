@@ -1,0 +1,297 @@
+[
+  {
+    "name": "Entidad",
+    "fieldName": "entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Nit Entidad",
+    "fieldName": "nit_entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Departamento Entidad",
+    "fieldName": "departamento_entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Ciudad Entidad",
+    "fieldName": "ciudad_entidad",
+    "tipo": "text"
+  },
+  {
+    "name": "OrdenEntidad",
+    "fieldName": "ordenentidad",
+    "tipo": "text"
+  },
+  {
+    "name": "Entidad Centralizada",
+    "fieldName": "codigo_pci",
+    "tipo": "text"
+  },
+  {
+    "name": "ID del Proceso",
+    "fieldName": "id_del_proceso",
+    "tipo": "text"
+  },
+  {
+    "name": "Referencia del Proceso",
+    "fieldName": "referencia_del_proceso",
+    "tipo": "text"
+  },
+  {
+    "name": "PCI",
+    "fieldName": "ppi",
+    "tipo": "text"
+  },
+  {
+    "name": "ID del Portafolio",
+    "fieldName": "id_del_portafolio",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre del Procedimiento",
+    "fieldName": "nombre_del_procedimiento",
+    "tipo": "text"
+  },
+  {
+    "name": "Descripción del Procedimiento",
+    "fieldName": "descripci_n_del_procedimiento",
+    "tipo": "text"
+  },
+  {
+    "name": "Fase",
+    "fieldName": "fase",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha de Publicacion del Proceso",
+    "fieldName": "fecha_de_publicacion_del",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Ultima Publicación",
+    "fieldName": "fecha_de_ultima_publicaci",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Publicacion (Fase Planeacion Precalificacion)",
+    "fieldName": "fecha_de_publicacion_fase",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Publicacion (Fase Seleccion Precalificacion)",
+    "fieldName": "fecha_de_publicacion_fase_1",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Publicacion (Manifestacion de Interes)",
+    "fieldName": "fecha_de_publicacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Publicacion (Fase Borrador)",
+    "fieldName": "fecha_de_publicacion_fase_2",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Publicacion (Fase Seleccion)",
+    "fieldName": "fecha_de_publicacion_fase_3",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Precio Base",
+    "fieldName": "precio_base",
+    "tipo": "number"
+  },
+  {
+    "name": "Modalidad de Contratacion",
+    "fieldName": "modalidad_de_contratacion",
+    "tipo": "text"
+  },
+  {
+    "name": "Justificación Modalidad de Contratación",
+    "fieldName": "justificaci_n_modalidad_de",
+    "tipo": "text"
+  },
+  {
+    "name": "Duracion",
+    "fieldName": "duracion",
+    "tipo": "number"
+  },
+  {
+    "name": "Unidad de Duracion",
+    "fieldName": "unidad_de_duracion",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha de Recepcion de Respuestas",
+    "fieldName": "fecha_de_recepcion_de",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Apertura de Respuesta",
+    "fieldName": "fecha_de_apertura_de_respuesta",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Fecha de Apertura Efectiva",
+    "fieldName": "fecha_de_apertura_efectiva",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Ciudad de la Unidad de Contratación",
+    "fieldName": "ciudad_de_la_unidad_de",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre de la Unidad de Contratación",
+    "fieldName": "nombre_de_la_unidad_de",
+    "tipo": "text"
+  },
+  {
+    "name": "Proveedores Invitados",
+    "fieldName": "proveedores_invitados",
+    "tipo": "number"
+  },
+  {
+    "name": "Proveedores con Invitacion Directa",
+    "fieldName": "proveedores_con_invitacion",
+    "tipo": "number"
+  },
+  {
+    "name": "Visualizaciones del Procedimiento",
+    "fieldName": "visualizaciones_del",
+    "tipo": "number"
+  },
+  {
+    "name": "Proveedores que Manifestaron Interes",
+    "fieldName": "proveedores_que_manifestaron",
+    "tipo": "number"
+  },
+  {
+    "name": "Respuestas al Procedimiento",
+    "fieldName": "respuestas_al_procedimiento",
+    "tipo": "number"
+  },
+  {
+    "name": "Respuestas Externas",
+    "fieldName": "respuestas_externas",
+    "tipo": "number"
+  },
+  {
+    "name": "Conteo de Respuestas a Ofertas",
+    "fieldName": "conteo_de_respuestas_a_ofertas",
+    "tipo": "number"
+  },
+  {
+    "name": "Proveedores Unicos con Respuestas",
+    "fieldName": "proveedores_unicos_con",
+    "tipo": "number"
+  },
+  {
+    "name": "Numero de Lotes",
+    "fieldName": "numero_de_lotes",
+    "tipo": "number"
+  },
+  {
+    "name": "Estado del Procedimiento",
+    "fieldName": "estado_del_procedimiento",
+    "tipo": "text"
+  },
+  {
+    "name": "ID Estado del Procedimiento",
+    "fieldName": "id_estado_del_procedimiento",
+    "tipo": "number"
+  },
+  {
+    "name": "Adjudicado",
+    "fieldName": "adjudicado",
+    "tipo": "text"
+  },
+  {
+    "name": "ID Adjudicacion",
+    "fieldName": "id_adjudicacion",
+    "tipo": "text"
+  },
+  {
+    "name": "CodigoProveedor",
+    "fieldName": "codigoproveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Departamento Proveedor",
+    "fieldName": "departamento_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Ciudad Proveedor",
+    "fieldName": "ciudad_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "Fecha Adjudicacion",
+    "fieldName": "fecha_adjudicacion",
+    "tipo": "calendar_date"
+  },
+  {
+    "name": "Valor Total Adjudicacion",
+    "fieldName": "valor_total_adjudicacion",
+    "tipo": "number"
+  },
+  {
+    "name": "Nombre del Adjudicador",
+    "fieldName": "nombre_del_adjudicador",
+    "tipo": "text"
+  },
+  {
+    "name": "Nombre del Proveedor Adjudicado",
+    "fieldName": "nombre_del_proveedor",
+    "tipo": "text"
+  },
+  {
+    "name": "NIT del Proveedor Adjudicado",
+    "fieldName": "nit_del_proveedor_adjudicado",
+    "tipo": "text"
+  },
+  {
+    "name": "Codigo Principal de Categoria",
+    "fieldName": "codigo_principal_de_categoria",
+    "tipo": "text"
+  },
+  {
+    "name": "Estado de Apertura del Proceso",
+    "fieldName": "estado_de_apertura_del_proceso",
+    "tipo": "text"
+  },
+  {
+    "name": "Tipo de Contrato",
+    "fieldName": "tipo_de_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Subtipo de Contrato",
+    "fieldName": "subtipo_de_contrato",
+    "tipo": "text"
+  },
+  {
+    "name": "Categorias Adicionales",
+    "fieldName": "categorias_adicionales",
+    "tipo": "text"
+  },
+  {
+    "name": "URLProceso",
+    "fieldName": "urlproceso",
+    "tipo": "url"
+  },
+  {
+    "name": "Codigo Entidad",
+    "fieldName": "codigo_entidad",
+    "tipo": "number"
+  },
+  {
+    "name": "Estado Resumen",
+    "fieldName": "estado_resumen",
+    "tipo": "text"
+  }
+]
