@@ -1,4 +1,4 @@
-# Proyecto Integrador 2 · Recomendador SECOP II
+# Recomendador SECOP II
 
 Sistema que cada mañana le entrega a cada empresa los procesos abiertos de SECOP II donde tiene más opción de ganar, y un dashboard para que la dirección de SECOP vea dónde se está perdiendo la competencia en la contratación pública.
 
@@ -84,7 +84,7 @@ Costo medido: **≈ USD 1,6 por noche**. Si un paso obligatorio falla, no se pub
 ## Estructura del repositorio
 
 ```
-Proyecto-Integrador-2/
+recomendador-secop/
 ├── 01-ingenieria-de-datos/   Ingesta, jobs de Glue (bronce, plata, oro), DDL y esquemas
 ├── 02-modelo-ml/             Diseño, validación y resultados de los modelos; artefactos v1
 ├── 03-mlops/                 Paquete ml/, job nocturno, API, MLflow, orquestación, monitoreo, CI/CD
@@ -186,8 +186,8 @@ Detalle: [`04-visualizacion/README.md`](04-visualizacion/README.md)
 | AWS CLI | v2 | Solo para el pipeline en la nube |
 
 ```bash
-git clone https://github.com/NicoHurtado/Proyecto-Integrador-2.git
-cd Proyecto-Integrador-2
+git clone https://github.com/NicoHurtado/recomendador-secop.git
+cd recomendador-secop
 ```
 
 ### 1. API y página web en local (sin AWS)
